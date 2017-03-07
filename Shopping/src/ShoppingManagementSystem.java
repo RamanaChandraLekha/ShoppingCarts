@@ -27,7 +27,7 @@ public class ShoppingManagementSystem {
 			choice.display();
 			System.out.println("enter your choice");
 
-			choice.setChoice(scan.next());
+			choice.setChoice(scan.nextLine());
 			input = choice.getChoice();
 
 			switch (input) {
@@ -49,6 +49,24 @@ public class ShoppingManagementSystem {
 				System.out.println("do you want to exit(yes/no)");
 				if (scan.next().equalsIgnoreCase("yes"))
 					flag = false;
+
+				break;
+			case "4":
+
+				System.exit(0);
+
+				break;
+			default:
+				System.out.println("enter the valid input");
+
+			}
+		}
+
+		scan.close();
+	}
+
+}
+
 
 				break;
 			case "4":

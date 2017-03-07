@@ -1,7 +1,9 @@
 
+import java.util.Iterator;
 import java.util.Set;
 
 public class Menu {
+	boolean flag=false;
 	public int availableItems(int available, int required) throws RuntimeException {
 		if (required <= available) {
 			available = available - required;
@@ -14,14 +16,27 @@ public class Menu {
 	}
 
 	public String requiredItem(Set<String> items, String requiredItem) throws RuntimeException {
-		if (items.contains(requiredItem))
-			return requiredItem;
-		else
-			
-			throw new RuntimeException();
 		
-
-	}
+		
+		String item=requiredItem.trim();
+		Iterator<String> iter=items.iterator();
+		while(iter.hasNext())
+		{
+			String i=iter.next();
+		if (i.equalsIgnoreCase(item))
+			flag=true;;
+		}
+		if(flag)
+				return( requiredItem.trim()).toLowerCase();
+		
+		
+				
+			
+		else
+			throw new RuntimeException();
+			
+		
+		}	
 	/*
 	 * public String requiredItem(String requiredItem) { if(String
 	 * item=String.parseInt(requiredItem)) return requiredItem; else th }
@@ -34,4 +49,5 @@ public class Menu {
 		else
 			throw new RuntimeException();
 	}
+	
 }

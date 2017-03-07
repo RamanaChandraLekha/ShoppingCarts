@@ -1,4 +1,8 @@
 
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -10,6 +14,8 @@ public class UsersChoice {
 	String userInput;
 	String id;
 	boolean flag;
+	boolean flag1;
+	String item1;
 	// int available;
 	LinkedHashMap<String, Set<Map.Entry<String, Integer>>> map;
 	static Set<String> itemsSet = ShoppingManagementSystem.treemap.keySet();
@@ -50,11 +56,17 @@ public class UsersChoice {
 		do {
 			do {
 				System.out.println("enter the product do you want");
-				item = scan.next();
+				BufferedReader read=new BufferedReader(new InputStreamReader(System.in));
+				try {
+					item = read.readLine();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				flag = false;
 				try {
 
-					item = customer.requiredItem(itemsSet, item);
+					item1 = customer.requiredItem(itemsSet, item);
 				} catch (Exception e) {
 
 					System.out.println("Enter valid data");
@@ -63,21 +75,38 @@ public class UsersChoice {
 					if (scan.next().equalsIgnoreCase("yes"))
 
 						flag = true;
-
+/*
 					else
-						break;
-
+						System.out.println(item1);
+*/
 				}
 			} while (flag);
 
 			do {
-				int available = ShoppingManagementSystem.treemap.get(item);
+				if(item1==null)
+					break;
+				
+				int available = ShoppingManagementSystem.treemap.get(item1);
+				do{
+					flag1=false;
 				System.out.println("enter the quantity");
-				quantity = scan.nextInt();
+				BufferedReader read=new BufferedReader(new InputStreamReader(System.in));
+				
+			try{
+				quantity = Integer.parseInt(read.readLine());
+			}
+			catch(Exception e)
+			{
+				System.out.println("enter numeric value");
+				System.out.println("do you want to enter yes/no");
+				if(scan.next().equalsIgnoreCase("yes"));
+				flag1 = true;
+			}}while(flag1);
 
 				flag = false;
 
 				try {
+					
 					remained = customer.availableItems(available, quantity);
 
 				} catch (Exception e) {
@@ -98,16 +127,19 @@ public class UsersChoice {
 						break;
 				}
 			} while (flag);
-			if (checkMap.containsKey(item)) {
-				int value = checkMap.get(item);
+			if (checkMap.containsKey(item1)) {
+				int value = checkMap.get(item1);
 				quantity = quantity + value;
-				checkMap.put(item, quantity);
-				items.put(item, quantity);
+				checkMap.put(item1, quantity);
+				items.put(item1, quantity);
 			} else {
-				items.put(item, quantity);
-				checkMap.put(item, quantity);
+				items.put(item1, quantity);
+				checkMap.put(item1, quantity);
 			}
-			ShoppingManagementSystem.treemap.put(item, remained);
+			if(item1==null)
+				{userInput="no";
+				break;}
+			ShoppingManagementSystem.treemap.put(item1, remained);
 			System.out.println(ShoppingManagementSystem.treemap);
 			System.out.println("do you want any other item(yes/no)");
 			try {

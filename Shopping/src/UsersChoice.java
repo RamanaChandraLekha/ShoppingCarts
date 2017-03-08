@@ -1,5 +1,6 @@
 
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,7 +29,7 @@ public class UsersChoice {
 																								// items
 	static LinkedHashMap<String, String> customersCheckMap = new LinkedHashMap<String, String>();
 	int remained;
-
+	BufferedReader read=new BufferedReader(new InputStreamReader(System.in));
 	String userChoice;
 	String item;
 
@@ -46,7 +47,7 @@ public class UsersChoice {
 		return userChoice;
 	}
 
-	public void requestForProducts() {
+	public void requestForProducts() throws IOException {
 
 		items = new LinkedHashMap<String, Integer>();// stores the items and
 														// quantity
@@ -56,7 +57,7 @@ public class UsersChoice {
 		do {
 			do {
 				System.out.println("enter the product do you want");
-				BufferedReader read=new BufferedReader(new InputStreamReader(System.in));
+				//BufferedReader read=new BufferedReader(new InputStreamReader(System.in));
 				try {
 					item = read.readLine();
 				} catch (IOException e1) {
@@ -72,7 +73,9 @@ public class UsersChoice {
 					System.out.println("Enter valid data");
 					System.out.println(ShoppingManagementSystem.treemap);
 					System.out.println("do you want to enter(yes/no)");
-					if (scan.next().equalsIgnoreCase("yes"))
+					
+					String choice=customer.inputCheck();
+					if (choice.equalsIgnoreCase("yes"))
 
 						flag = true;
 /*
@@ -90,7 +93,7 @@ public class UsersChoice {
 				do{
 					flag1=false;
 				System.out.println("enter the quantity");
-				BufferedReader read=new BufferedReader(new InputStreamReader(System.in));
+				
 				
 			try{
 				quantity = Integer.parseInt(read.readLine());
@@ -98,9 +101,12 @@ public class UsersChoice {
 			catch(Exception e)
 			{
 				System.out.println("enter numeric value");
-				System.out.println("do you want to enter yes/no");
-				if(scan.next().equalsIgnoreCase("yes"));
+				/*System.out.println("do you want to enter yes/no");
+				userInput=customer.inputCheck();
+				if(userInput.equalsIgnoreCase("yes"))*/
 				flag1 = true;
+				//else break;
+				
 			}}while(flag1);
 
 				flag = false;
@@ -110,17 +116,24 @@ public class UsersChoice {
 					remained = customer.availableItems(available, quantity);
 
 				} catch (Exception e) {
-					if (quantity > available) {
+					//if (quantity > available){
 						quantity = 0;
+						remained=available;
 						System.out.println("out of stock");
 						userInput = "no";
-						break;
+					//	break;
 
-					}
+					//}
 					System.out.println("enter the valid data");
 					System.out.println(ShoppingManagementSystem.treemap);
 					System.out.println("do you want to enter(yes/no)");
-					if (scan.next().equalsIgnoreCase("yes"))
+					//try {
+						 userInput= customer.inputCheck();
+					//} catch (IOException e1) {
+						// TODO Auto-generated catch block
+					//	e1.printStackTrace();
+					//}
+					if (userInput.equalsIgnoreCase("yes"))
 
 						flag = true;
 					else
@@ -146,7 +159,7 @@ public class UsersChoice {
 				userInput = customer.validate(scan.next());
 			} catch (Exception e) {
 				System.out.println("enter either yes/no");
-				userInput = scan.next();
+				userInput = customer.inputCheck();
 
 			}
 
@@ -159,6 +172,7 @@ public class UsersChoice {
 		if (!(userInput.equalsIgnoreCase("yes"))) {
 			set = items.entrySet();
 			map = new LinkedHashMap<String, Set<Map.Entry<String, Integer>>>();
+			//if(!map==null)
 			System.out.println("enter your name");
 			String name = scan.next();
 			map.put(name, set);

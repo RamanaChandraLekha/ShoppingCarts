@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ public class ShoppingManagementSystem {
 
 	static String input;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		boolean flag = true;
 		treemap.put("milk", 50);
 		treemap.put("eggs", 175);
@@ -67,20 +68,3 @@ public class ShoppingManagementSystem {
 
 }
 
-
-				break;
-			case "4":
-
-				System.exit(0);
-
-				break;
-			default:
-				System.out.println("enter the valid input");
-
-			}
-		}
-
-		scan.close();
-	}
-
-}
